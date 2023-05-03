@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeWorkshopClasses", "TimeWorkshopClasses\TimeWorkshopClasses.csproj", "{37033ED6-5582-4011-A886-789A03116FB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeWorkshopTests", "TimeWorkshopTests\TimeWorkshopTests.csproj", "{90D72CE9-1B8A-4CB6-8AB1-F46FBCD50B8F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{37033ED6-5582-4011-A886-789A03116FB1} = {37033ED6-5582-4011-A886-789A03116FB1}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TimeWorkshopClasses", "TimeWorkshopClasses", "{F73AB3C5-4C33-4471-8F69-53750E0001D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TimeWorkshopTests", "TimeWorkshopTests", "{BC7FD3FA-52BB-47DF-9F3B-502711D83B88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37033ED6-5582-4011-A886-789A03116FB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37033ED6-5582-4011-A886-789A03116FB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37033ED6-5582-4011-A886-789A03116FB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37033ED6-5582-4011-A886-789A03116FB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90D72CE9-1B8A-4CB6-8AB1-F46FBCD50B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D72CE9-1B8A-4CB6-8AB1-F46FBCD50B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D72CE9-1B8A-4CB6-8AB1-F46FBCD50B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D72CE9-1B8A-4CB6-8AB1-F46FBCD50B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{37033ED6-5582-4011-A886-789A03116FB1} = {F73AB3C5-4C33-4471-8F69-53750E0001D4}
+		{90D72CE9-1B8A-4CB6-8AB1-F46FBCD50B8F} = {BC7FD3FA-52BB-47DF-9F3B-502711D83B88}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDE1207C-D66D-4F5D-869C-4598470A23F6}
+	EndGlobalSection
+EndGlobal

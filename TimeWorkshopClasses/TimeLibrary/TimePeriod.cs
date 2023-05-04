@@ -11,15 +11,29 @@ namespace TimeLibrary
 {
     public struct TimePeriod : IEquatable<TimePeriod>, IComparable<TimePeriod>
     {
-        //Only seconds are used to work with TimePeriod
         public readonly long Seconds { get; }
 
         #region Constructors
+
+       /* 
         public TimePeriod(byte hours, byte minutes = 00, byte seconds = 00)
         {
             U.ExceptionHandler(minutes, seconds);
 
             Seconds = (hours * 3600) + (minutes * 60) + seconds;
+        }
+       */
+
+        public TimePeriod(int hours = 00, int minutes = 00, int seconds = 00)
+        {
+            byte convertHour = (byte)hours;
+            byte convertMinutes = (byte)minutes;
+            byte convertSeconds = (byte)seconds;
+
+            U.ExceptionHandler(convertHour, convertMinutes, convertSeconds);
+
+            Seconds = (convertHour * 3600) + (convertMinutes * 60) + convertSeconds;
+
         }
 
         public TimePeriod(Time t1, Time t2)

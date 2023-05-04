@@ -1,6 +1,5 @@
 ﻿using TimeLibrary;
 
-
 namespace TimeWorkshop
 {
     class Program

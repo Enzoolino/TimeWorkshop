@@ -23,13 +23,28 @@ namespace TimeLibrary
         public readonly byte Seconds { get;}
 
         #region Constructors
-        public Time(byte hours, byte minutes = 00, byte seconds = 00)
+        /*
+        public Time(byte hours = 00, byte minutes = 00, byte seconds = 00)
         {
             U.ExceptionHandler(hours, minutes, seconds);
             
             Hours = hours;
             Minutes = minutes;
             Seconds = seconds;
+        }
+        */
+
+        public Time(int hours = 00, int minutes = 00, int seconds = 00)
+        {
+            byte convertHour = (byte)hours;
+            byte convertMinutes = (byte)minutes;
+            byte convertSeconds = (byte)seconds;
+
+            U.ExceptionHandler(convertHour, convertMinutes, convertSeconds);
+
+            Hours = convertHour;
+            Minutes = convertMinutes;
+            Seconds = convertSeconds;
         }
 
         public Time(string strTime)
@@ -53,6 +68,8 @@ namespace TimeLibrary
                     "Upewnij się, że wprowadzasz dane w formacie 00:00:00.");
             
         }
+
+        
         #endregion
 
         public override string ToString()
@@ -117,11 +134,7 @@ namespace TimeLibrary
             int totalMinutes = this.Minutes + t.Minutes + (totalSeconds / 60);
             int totalHours = this.Hours + t.Hours + (totalMinutes / 60);
 
-            byte parsedSeconds = (byte)(totalSeconds % 60);
-            byte parsedMinutes = (byte)(totalMinutes % 60);
-            byte parsedHours = (byte)(totalHours % 24);
-
-            Time result = new Time(parsedHours, parsedMinutes, parsedSeconds);
+            Time result = new Time(totalHours % 24, totalMinutes % 60, totalSeconds % 60);
             return result;
         }
 

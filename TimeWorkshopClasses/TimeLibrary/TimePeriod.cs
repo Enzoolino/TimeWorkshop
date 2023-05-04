@@ -11,19 +11,19 @@ namespace TimeLibrary
 {
     public struct TimePeriod : IEquatable<TimePeriod>, IComparable<TimePeriod>
     {
+        /// <summary>
+        /// This property always returns a value and is a representation of Seconds in Time Period.
+        /// </summary>
         public readonly long Seconds { get; }
 
         #region Constructors
-
-       /* 
-        public TimePeriod(byte hours, byte minutes = 00, byte seconds = 00)
-        {
-            U.ExceptionHandler(minutes, seconds);
-
-            Seconds = (hours * 3600) + (minutes * 60) + seconds;
-        }
-       */
-
+        /// <summary>
+        /// TimePeriod Constructor that takes 3 ints and creates element of type 'TimePeriod'.
+        /// </summary>
+        /// <param name="hours"></param>
+        /// <param name="minutes"></param>
+        /// <param name="seconds"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public TimePeriod(int hours = 00, int minutes = 00, int seconds = 00)
         {
             byte convertHour = (byte)hours;
@@ -33,9 +33,14 @@ namespace TimeLibrary
             U.ExceptionHandler(convertHour, convertMinutes, convertSeconds);
 
             Seconds = (convertHour * 3600) + (convertMinutes * 60) + convertSeconds;
-
         }
 
+        /// <summary>
+        /// TimePeriod Constructor that takes 2 'Time' elements and base on difference between them creates element of type 'TimePeriod'.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public TimePeriod(Time t1, Time t2)
         {
             long fullDay = 86400;
@@ -50,6 +55,12 @@ namespace TimeLibrary
                 Seconds = 00;
         }
 
+        /// <summary>
+        /// TimePeriod Constructor that takes string and creates element of type 'TimePeriod'.
+        /// </summary>
+        /// <param name="strTime"></param>
+        /// <exception cref="FormatException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public TimePeriod(string strTime)
         {
             string[] timeArray = strTime.Split(":");
@@ -69,6 +80,10 @@ namespace TimeLibrary
                     "Upewnij się, że wprowadzasz dane w formacie 00:00:00.");
         }
 
+        /// <summary>
+        /// TimePeriod Constructor that takes long value representing number of seconds and creates element of type 'TimePeriod'.
+        /// </summary>
+        /// <param name="inSeconds"></param>
         public TimePeriod(long inSeconds)
         {
             Seconds = inSeconds;
@@ -113,6 +128,7 @@ namespace TimeLibrary
         }
         #endregion
 
+        //TODO - Dokumentacja XML
         #region Arithmetics
         TimePeriod Plus(TimePeriod t1)
         {
@@ -145,6 +161,7 @@ namespace TimeLibrary
 
         #endregion
 
+        //TODO - Dokumentacja XML
         #region Basic Operators
         public static bool operator ==(TimePeriod t1, TimePeriod t2) => t1.Equals(t2);
         public static bool operator !=(TimePeriod t1, TimePeriod t2) => !(t1 == t2);

@@ -16,24 +16,26 @@ namespace TimeLibrary
     public struct Time : IEquatable<Time>, IComparable<Time>
     {
         /// <summary>
-        /// This property always returns the value and is a representation of Hours in Time.
+        /// This property always returns a value and is a representation of Hours in Time.
         /// </summary>
         public readonly byte Hours { get;}
+        /// <summary>
+        /// This property always return a value and is a representation of Minutes in Time.
+        /// </summary>
         public readonly byte Minutes { get;}
+        /// <summary>
+        /// This property always return a value and is a representation of Seconds in Time.
+        /// </summary>
         public readonly byte Seconds { get;}
 
         #region Constructors
-        /*
-        public Time(byte hours = 00, byte minutes = 00, byte seconds = 00)
-        {
-            U.ExceptionHandler(hours, minutes, seconds);
-            
-            Hours = hours;
-            Minutes = minutes;
-            Seconds = seconds;
-        }
-        */
-
+        /// <summary>
+        /// Time Constructor that takes 3 ints and creates element of type 'Time'.
+        /// </summary>
+        /// <param name="hours"></param>
+        /// <param name="minutes"></param>
+        /// <param name="seconds"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public Time(int hours = 00, int minutes = 00, int seconds = 00)
         {
             byte convertHour = (byte)hours;
@@ -47,6 +49,12 @@ namespace TimeLibrary
             Seconds = convertSeconds;
         }
 
+        /// <summary>
+        /// Time Constructor that takes string and creates element of type 'Time'.
+        /// </summary>
+        /// <param name="strTime"></param>
+        /// <exception cref="FormatException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public Time(string strTime)
         {
             string[] timeArray = strTime.Split(":");
@@ -66,29 +74,19 @@ namespace TimeLibrary
             else
                 throw new FormatException("Nie udało się przekonwertować wprowadzonych danych na wartość czasową. " +
                     "Upewnij się, że wprowadzasz dane w formacie 00:00:00.");
-            
         }
-
-        
         #endregion
 
         public override string ToString()
         {
             DateTime time = new DateTime(1, 1, 1, Hours, Minutes, Seconds);
             return time.ToString("HH:mm:ss");
-
-            //return $"{Hours}:{Minutes}:{Seconds}"; 
         }
 
         #region Implementacja IEquatable<Time>
 
         public bool Equals(Time other)
         {
-            /*
-            if (ReferenceEquals(this, other))
-                return true;
-            */
-            
             return
                 (Hours == other.Hours &&
                  Minutes == other.Minutes &&
@@ -125,6 +123,7 @@ namespace TimeLibrary
         }
         #endregion
 
+        //TODO - Komentarze XML
         #region Arithmetics
         Time Plus(TimePeriod period)
         {
@@ -178,17 +177,64 @@ namespace TimeLibrary
         {
             return t1.Minus(period);
         }
-
         #endregion
 
         #region Operators
+        /// <summary>
+        /// Checks if Time value is equal to another.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <returns>Bool value</returns>
         public static bool operator ==(Time t1, Time t2) => t1.Equals(t2);
+        /// <summary>
+        /// Checks if Time value is not equal to another.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <returns>Bool value</returns>
         public static bool operator !=(Time t1, Time t2) => !(t1 == t2);
+        /// <summary>
+        /// Checks if Time value is smaller than another.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <returns>Bool value</returns>
         public static bool operator <(Time t1, Time t2) => t1.CompareTo(t2) < 0;
+        /// <summary>
+        /// Checks if Time value is bigger than another.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <returns>Bool value</returns>
         public static bool operator >(Time t1, Time t2) => t1.CompareTo(t2) > 0;
+        /// <summary>
+        /// Checks if Time value is smaller or equal to another.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <returns>Bool value</returns>
         public static bool operator <=(Time t1, Time t2) => t1.CompareTo(t2) <= 0;
+        /// <summary>
+        /// Checks if Time value is bigger or equal to another.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <returns>Bool value</returns>
         public static bool operator >=(Time t1, Time t2) => t1.CompareTo(t2) >= 0;
+        /// <summary>
+        /// Adds element of type 'TimePeriod' to element of class 'Time'.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="period"></param>
+        /// <returns>Element of type 'Time'</returns>
         public static Time operator +(Time t1, TimePeriod period) => t1.Plus(period);
+        /// <summary>
+        /// Subtracts element of type 'TimePeriod' from element 'Time'.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="period"></param>
+        /// <returns>Element of type 'Time'</returns>
         public static Time operator -(Time t1, TimePeriod period) => t1.Minus(period);
 
         #endregion

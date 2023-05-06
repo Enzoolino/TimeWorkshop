@@ -15,18 +15,20 @@ namespace TimeLibrary
 {
     public struct Time : IEquatable<Time>, IComparable<Time>
     {
+        #region Properties
         /// <summary>
-        /// This property always returns a value and is a representation of Hours in Time.
+        /// This property always returns a value and is a representation of Hours in 'Time'.
         /// </summary>
         public readonly byte Hours { get;}
         /// <summary>
-        /// This property always return a value and is a representation of Minutes in Time.
+        /// This property always returns a value and is a representation of Minutes in 'Time'.
         /// </summary>
         public readonly byte Minutes { get;}
         /// <summary>
-        /// This property always return a value and is a representation of Seconds in Time.
+        /// This property always returns a value and is a representation of Seconds in 'Time'.
         /// </summary>
         public readonly byte Seconds { get;}
+        #endregion
 
         #region Constructors
         /// <summary>
@@ -52,6 +54,7 @@ namespace TimeLibrary
         /// <summary>
         /// Time Constructor that takes string and creates element of type 'Time'.
         /// </summary>
+        /// <remarks>Format must be "00:00:00".</remarks>
         /// <param name="strTime"></param>
         /// <exception cref="FormatException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
@@ -72,8 +75,8 @@ namespace TimeLibrary
                 Seconds = resultSeconds;
             }
             else
-                throw new FormatException("Nie udało się przekonwertować wprowadzonych danych na wartość czasową. " +
-                    "Upewnij się, że wprowadzasz dane w formacie 00:00:00.");
+                throw new FormatException("Converting input into 'Time' value failed." +
+                    "Make sure value you are trying to convert is in format 00:00:00.");
         }
         #endregion
 
@@ -123,9 +126,14 @@ namespace TimeLibrary
         }
         #endregion
 
-        //TODO - Komentarze XML
         #region Arithmetics
-        Time Plus(TimePeriod period)
+        /// <summary>
+        /// Adds element of type 'TimePeriod' to element of class 'Time'.
+        /// </summary>
+        /// <remarks>If 'TimePeriod' is big, the result will be a 'Time' of one of the following days (modulo calculations).</remarks>
+        /// <param name="period"></param>
+        /// <returns>Element of type 'Time'</returns>
+        public Time Plus(TimePeriod period)
         {
             TimeSpan t = TimeSpan.FromSeconds(period.Seconds);
 
@@ -137,12 +145,25 @@ namespace TimeLibrary
             return result;
         }
 
-        static Time Plus(Time t1, TimePeriod period)
+        /// <summary>
+        /// Adds element of type 'TimePeriod' to element of class 'Time'.
+        /// </summary>
+        /// <remarks>If 'TimePeriod' is big, the result will be a 'Time' of one of the following days (modulo calculations).</remarks>
+        /// <param name="t1"></param>
+        /// <param name="period"></param>
+        /// <returns>Element of type 'Time'</returns>
+        public static Time Plus(Time t1, TimePeriod period)
         {
             return t1.Plus(period);
         }
 
-       Time Minus(TimePeriod period)
+        /// <summary>
+        /// Subtracts element of type 'TimePeriod' from element 'Time'.
+        /// </summary>
+        /// <remarks>If 'TimePeriod' is big, the result will be a 'Time' of one of the previous days (modulo calculations).</remarks>
+        /// <param name="period"></param>
+        /// <returns>Element of type 'Time'</returns>
+        public Time Minus(TimePeriod period)
         {
             TimeSpan t = TimeSpan.FromSeconds(period.Seconds);
 
@@ -159,7 +180,7 @@ namespace TimeLibrary
             if (totalMinutes < 0)
             {
                 totalMinutes += 60;
-                totalHours++;
+                totalHours--;
             }
 
             totalHours = (totalHours % 24 + 24) % 24;
@@ -173,62 +194,105 @@ namespace TimeLibrary
 
         }
 
-        static Time Minus(Time t1, TimePeriod period)
+        /// <summary>
+        /// Subtracts element of type 'TimePeriod' from element 'Time'.
+        /// </summary>
+        /// <remarks>If 'TimePeriod' is big, the result will be a 'Time' of one of the previous days (modulo calculations).</remarks>
+        /// <param name="t1"></param>
+        /// <param name="period"></param>
+        /// <returns>Element of type 'Time'</returns>
+        public static Time Minus(Time t1, TimePeriod period)
         {
             return t1.Minus(period);
+        }
+
+        /// <summary>
+        /// Multiplies element of type 'Time' by given number.
+        /// </summary>
+        /// <remarks>If multiplication is big, the result 'Time' will be corrected by modulo calculations.</remarks>
+        /// <param name="multiplicator"></param>
+        /// <returns>Element of type 'Time'</returns>
+        public Time Multiply(int multiplicator)
+        {
+            int totalSeconds = this.Seconds * multiplicator;
+            int totalMinutes = this.Minutes * multiplicator + (totalSeconds / 60);
+            int totalHours = this.Hours * multiplicator + (totalMinutes / 60);
+
+            Time result = new Time(totalHours % 24, totalMinutes % 60, totalSeconds % 60);
+            return result;
+        }
+
+        /// <summary>
+        /// Multiplies element of type 'Time' by given number.
+        /// </summary>
+        /// <remarks>If multiplication is big, the result 'Time' will be corrected by modulo calculations.</remarks>
+        /// <param name="t1"></param>
+        /// <param name="multiplicator"></param>
+        /// <returns>Element of type 'Time'</returns>
+        public static Time Multiply(Time t1, int multiplicator)
+        {
+            return t1.Multiply(multiplicator);
         }
         #endregion
 
         #region Operators
         /// <summary>
-        /// Checks if Time value is equal to another.
+        /// Checks if 'Time' value is equal to another.
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns>Bool value</returns>
         public static bool operator ==(Time t1, Time t2) => t1.Equals(t2);
+
         /// <summary>
-        /// Checks if Time value is not equal to another.
+        /// Checks if 'Time' value is not equal to another.
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns>Bool value</returns>
         public static bool operator !=(Time t1, Time t2) => !(t1 == t2);
+
         /// <summary>
-        /// Checks if Time value is smaller than another.
+        /// Checks if 'Time' value is smaller than another.
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns>Bool value</returns>
         public static bool operator <(Time t1, Time t2) => t1.CompareTo(t2) < 0;
+
         /// <summary>
-        /// Checks if Time value is bigger than another.
+        /// Checks if 'Time' value is bigger than another.
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns>Bool value</returns>
         public static bool operator >(Time t1, Time t2) => t1.CompareTo(t2) > 0;
+
         /// <summary>
-        /// Checks if Time value is smaller or equal to another.
+        /// Checks if 'Time' value is smaller or equal to another.
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns>Bool value</returns>
         public static bool operator <=(Time t1, Time t2) => t1.CompareTo(t2) <= 0;
+
         /// <summary>
-        /// Checks if Time value is bigger or equal to another.
+        /// Checks if 'Time' value is bigger or equal to another.
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns>Bool value</returns>
         public static bool operator >=(Time t1, Time t2) => t1.CompareTo(t2) >= 0;
+
         /// <summary>
         /// Adds element of type 'TimePeriod' to element of class 'Time'.
         /// </summary>
+        /// <remarks>If TimePeriod is big, the result will be a Time of one of the following days.</remarks>
         /// <param name="t1"></param>
         /// <param name="period"></param>
         /// <returns>Element of type 'Time'</returns>
         public static Time operator +(Time t1, TimePeriod period) => t1.Plus(period);
+
         /// <summary>
         /// Subtracts element of type 'TimePeriod' from element 'Time'.
         /// </summary>
@@ -236,6 +300,14 @@ namespace TimeLibrary
         /// <param name="period"></param>
         /// <returns>Element of type 'Time'</returns>
         public static Time operator -(Time t1, TimePeriod period) => t1.Minus(period);
+
+        /// <summary>
+        /// Multiplies element of type 'Time' by given number.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="multiplicator"></param>
+        /// <returns>Element of type 'Time'</returns>
+        public static Time operator *(Time t1, int multiplicator) => t1.Multiply(multiplicator);
 
         #endregion
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -40,11 +41,11 @@ namespace TimeLibrary
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public Time(int hours = 00, int minutes = 00, int seconds = 00)
         {
+            U.ExceptionHandler(hours, minutes, seconds);
+
             byte convertHour = (byte)hours;
             byte convertMinutes = (byte)minutes;
             byte convertSeconds = (byte)seconds;
-
-            U.ExceptionHandler(convertHour, convertMinutes, convertSeconds);
 
             Hours = convertHour;
             Minutes = convertMinutes;
@@ -58,21 +59,40 @@ namespace TimeLibrary
         /// <param name="strTime"></param>
         /// <exception cref="FormatException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public Time(string strTime)
         {
             string[] timeArray = strTime.Split(":");
-            
-            bool uncheckedHour = byte.TryParse(timeArray[0], out byte resultHours);
-            bool uncheckedMinutes = byte.TryParse(timeArray[1], out byte resultMinutes);
-            bool uncheckedSeconds = byte.TryParse(timeArray[2], out byte resultSeconds);
 
-            U.ExceptionHandler(resultHours, resultMinutes, resultSeconds);
-
-            if (uncheckedHour && uncheckedMinutes && uncheckedSeconds is true)
+            if (timeArray.Length == 3)
             {
-                Hours = resultHours;
-                Minutes = resultMinutes;
-                Seconds = resultSeconds;
+                for (int i = 0; i < timeArray.Length; i++)
+                {
+                    bool checkTime = int.TryParse(timeArray[i], out int result);
+
+                    if (!checkTime)
+                    {
+                        throw new ArgumentException("Converting input into 'Time' value failed." +
+                            "You can only input Natural numbers.");
+                    }
+                }
+
+                U.ExceptionHandler(int.Parse(timeArray[0]), int.Parse(timeArray[1]), int.Parse(timeArray[2]));
+
+                //In this situation TryParse is only an additional defence in case of some strange value somehow parsing to byte.
+                bool uncheckedHour = byte.TryParse(timeArray[0], out byte resultHours);
+                bool uncheckedMinutes = byte.TryParse(timeArray[1], out byte resultMinutes);
+                bool uncheckedSeconds = byte.TryParse(timeArray[2], out byte resultSeconds);
+
+                if (uncheckedHour && uncheckedMinutes && uncheckedSeconds is true)
+                {
+                    Hours = resultHours;
+                    Minutes = resultMinutes;
+                    Seconds = resultSeconds;
+                }
+                else
+                    throw new ArgumentException("Converting input into 'Time' value failed." +
+                        "Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.");
             }
             else
                 throw new FormatException("Converting input into 'Time' value failed." +

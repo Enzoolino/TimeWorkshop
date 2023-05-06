@@ -144,7 +144,7 @@ namespace TimeUnitTests
     [TestClass]
     public class TimeOperators
     {
-        #region Operators (Equals, CompareTo) ================================
+        #region Operators (Equals, CompareTo) tests ================================
 
         [DataTestMethod, TestCategory("Operators")]
         [DataRow(10, 10, 10, 10, 10, 10, true)]
@@ -229,7 +229,7 @@ namespace TimeUnitTests
     [TestClass]
     public class TimeArithmetics
     {
-        #region Arithmetics (Plus, Minus, Multiply + their operators) ======================
+        #region Arithmetics (Plus, Minus, Multiply + their operators) tests ======================
 
         [DataTestMethod, TestCategory("Arithemtics")]
         [DataRow(10, 10, 10, 10, 10, 10, 20, 20, 20)]
@@ -285,6 +285,91 @@ namespace TimeUnitTests
             Assert.AreEqual(expectedTime, t1.Multiply(multiplicator));
             Assert.AreEqual(expectedTime, Time.Multiply(t1, multiplicator));
             Assert.AreEqual(expectedTime, t1 * multiplicator);
+        }
+        #endregion
+    }
+
+    [TestClass]
+    public class TimeExceptions
+    {
+        #region Exceptions tests
+        [DataTestMethod, TestCategory("Constructors")]
+        [DataRow(-1, 1, 1)]
+        [DataRow(1, -1, 1)]
+        [DataRow(1, 1, -1)]
+        [DataRow(-1, -1, 1)]
+        [DataRow(-1, 1, -1)]
+        [DataRow(1, -1, -1)]
+        [DataRow(-1, -1, -1)]
+        [DataRow(24, 1, 1)]
+        [DataRow(1, 60, 1)]
+        [DataRow(1, 1, 60)]
+        [DataRow(24, 1, 60)]
+        [DataRow(1, 60, 60)]
+        [DataRow(24, 60, 1)]
+        [DataRow(24, 60, 60)]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void TimeConstructors_ArgumentOutOfRangeException(int hour, int minute, int second)
+        {
+            Time t = new Time(hour, minute, second);
+        }
+
+        [DataTestMethod, TestCategory("Constructors")]
+        [DataRow(0.01, 0.1, 1)]
+        [DataRow(0.1, 0.01, 1)]
+        [DataRow(0.1, 0.1, 0.01)]
+        [DataRow(0.5, 0.7, 0.5)]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TimeConstructors_ArgumentException(int hour, int minute, int second)
+        {
+            Time t = new Time(hour, minute, second);
+        }
+
+        [DataTestMethod, TestCategory("Constructors")]
+        [DataRow("-1:1:1")]
+        [DataRow("1:-1:1")]
+        [DataRow("1:1:-1")]
+        [DataRow("-1:-1:1")]
+        [DataRow("-1:1:-1")]
+        [DataRow("1:-1:-1")]
+        [DataRow("-1:-1:-1")]
+        [DataRow("24:1:1")]
+        [DataRow("1:60:1")]
+        [DataRow("1:1:60")]
+        [DataRow("24:1:60")]
+        [DataRow("1:60:60")]
+        [DataRow("24:60:1")]
+        [DataRow("24:60:60")]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void TimeConstructors_String_ArgumentOutOfRangeException(string stringRepresentation)
+        {
+            Time t = new Time(stringRepresentation);
+        }
+
+        [DataTestMethod, TestCategory("Constructors")]
+        [DataRow("0.01:0.1:1")]
+        [DataRow("0.1:0.01:1")]
+        [DataRow("0.1:0.1:0.01")]
+        [DataRow("0.5:0.7:0.5")]
+        [DataRow("Kasia:10:20")]
+        [DataRow("Janusz:Marian:30")]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TimeConstructors_String_ArgumentException(string stringRepresentation)
+        {
+            Time t = new Time(stringRepresentation);
+        }
+
+        [DataTestMethod, TestCategory("Constructors")]
+        [DataRow("Mariola10:10")]
+        [DataRow("10,10,10")]
+        [DataRow("JanuszTomaszKasia")]
+        [DataRow(":10:10:10:")]
+        [DataRow("10;10:10")]
+        [DataRow("20:07::15")]
+        [ExpectedException(typeof(FormatException))]
+        public void TimeConstructors_String_FormatException(string stringRepresentation)
+        {
+            Time t = new Time(stringRepresentation);
         }
         #endregion
     }

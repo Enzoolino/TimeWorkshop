@@ -15,10 +15,11 @@ namespace TimeLibrary
         /// <param name="m"></param>
         /// <param name="s"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void ExceptionHandler(byte h, byte m, byte s)
+        public static void ExceptionHandler(int h, int m, int s)
         {
             if ((h < 0 || h > 23) || (m < 0 || m > 59) || (s < 0 || s > 59))
                 throw new ArgumentOutOfRangeException("Podane wartości czasowe są niepoprawne!");
+                
         }
 
         /// <summary>

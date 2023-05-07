@@ -28,13 +28,15 @@ namespace TimeLibrary
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public TimePeriod(int hours = 00, int minutes = 00, int seconds = 00)
         {
+            U.TimePeriodExceptionHandler(hours, minutes, seconds);
+
+            /*
             byte convertHour = (byte)hours;
             byte convertMinutes = (byte)minutes;
             byte convertSeconds = (byte)seconds;
+            */
 
-            U.ExceptionHandler(convertMinutes, convertSeconds);
-
-            Seconds = (convertHour * 3600) + (convertMinutes * 60) + convertSeconds;
+            Seconds = (hours * 3600) + (minutes * 60) + seconds;
         }
 
         /// <summary>
@@ -69,19 +71,31 @@ namespace TimeLibrary
         {
             string[] timeArray = strTime.Split(":");
 
-            bool uncheckedHour = byte.TryParse(timeArray[0], out byte resultHours);
-            bool uncheckedMinutes = byte.TryParse(timeArray[1], out byte resultMinutes);
-            bool uncheckedSeconds = byte.TryParse(timeArray[2], out byte resultSeconds);
-
-            U.ExceptionHandler(resultMinutes, resultSeconds);
-
-            if (uncheckedHour && uncheckedMinutes && uncheckedSeconds is true)
+            if (timeArray.Length == 3)
             {
-                Seconds = (resultHours * 3600) + (resultMinutes * 60) + resultSeconds;
+                for (int i = 0; i < timeArray.Length; i++)
+                {
+                    bool checkTime = int.TryParse(timeArray[i], out int result);
+
+                    if (!checkTime)
+                    {
+                        throw new ArgumentException("Converting input into 'TimePeriod' value failed." +
+                            "You can only input Natural numbers.");
+                    }
+                }
+
+                U.TimePeriodExceptionHandler(int.Parse(timeArray[0]), int.Parse(timeArray[1]), int.Parse(timeArray[2]));
+
+                int resultHours = int.Parse(timeArray[0]);
+                int resultMinutes = int.Parse(timeArray[1]);
+                int resultSeconds = int.Parse(timeArray[2]);
+
+               Seconds = (resultHours * 3600) + (resultMinutes * 60) + resultSeconds;
+                
             }
             else
-                throw new FormatException("Nie udało się przekonwertować wprowadzonych danych na wartość czasową. " +
-                    "Upewnij się, że wprowadzasz dane w formacie 00:00:00.");
+                throw new FormatException("Converting input into 'TimePeriod' value failed." +
+                    "Make sure value you are trying to convert is in format 00:00:00.");
         }
 
         /// <summary>
@@ -155,12 +169,12 @@ namespace TimeLibrary
         /// <remarks>Result can't be negative.</remarks>
         /// <param name="t1"></param>
         /// <returns>Element of type 'TimePeriod'</returns>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public TimePeriod Minus(TimePeriod t1)
         {
             if (this.Seconds < t1.Seconds)
             {
-                throw new ArgumentException("Odjęcie tego odcinka czasowego spowoduje wynik minusowy, co nie jest dopuszczalne!");
+                throw new ArgumentOutOfRangeException("Odjęcie tego odcinka czasowego spowoduje wynik minusowy, co nie jest dopuszczalne!");
             }
             else
             {

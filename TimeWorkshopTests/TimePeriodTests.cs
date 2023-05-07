@@ -298,5 +298,96 @@ namespace TimePeriodUnitTests
         }
         #endregion
     }
+
+    [TestClass]
+    public class TimePeriodExceptions
+    {
+        #region Exceptions tests
+        [DataTestMethod, TestCategory("Constructors")]
+        [DataRow(-1, 1, 1)]
+        [DataRow(1, -1, 1)]
+        [DataRow(1, 1, -1)]
+        [DataRow(-1, -1, 1)]
+        [DataRow(-1, 1, -1)]
+        [DataRow(1, -1, -1)]
+        [DataRow(-1, -1, -1)]
+        [DataRow(1, 60, 1)]
+        [DataRow(1, 1, 60)]
+        [DataRow(1, 60, 60)]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void TimePeriodConstructors_ArgumentOutOfRangeException(int hour, int minute, int second)
+        {
+            TimePeriod t = new TimePeriod(hour, minute, second);
+        }
+
+        [DataTestMethod, TestCategory("Constructors")]
+        [DataRow(0.01, 0.1, 1)]
+        [DataRow(0.1, 0.01, 1)]
+        [DataRow(0.1, 0.1, 0.01)]
+        [DataRow(0.5, 0.7, 0.5)]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TimePeriodConstructors_ArgumentException(int hour, int minute, int second)
+        {
+            TimePeriod t = new TimePeriod(hour, minute, second);
+        }
+
+        [DataTestMethod, TestCategory("Constructors")]
+        [DataRow("-1:1:1")]
+        [DataRow("1:-1:1")]
+        [DataRow("1:1:-1")]
+        [DataRow("-1:-1:1")]
+        [DataRow("-1:1:-1")]
+        [DataRow("1:-1:-1")]
+        [DataRow("-1:-1:-1")]
+        [DataRow("1:60:1")]
+        [DataRow("1:1:60")]
+        [DataRow("1:60:60")]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void TimePeriodConstructors_String_ArgumentOutOfRangeException(string stringRepresentation)
+        {
+            TimePeriod t = new TimePeriod(stringRepresentation);
+        }
+
+        [DataTestMethod, TestCategory("Constructors")]
+        [DataRow("0.01:0.1:1")]
+        [DataRow("0.1:0.01:1")]
+        [DataRow("0.1:0.1:0.01")]
+        [DataRow("0.5:0.7:0.5")]
+        [DataRow("Kasia:10:20")]
+        [DataRow("Janusz:Marian:30")]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TimePeriodConstructors_String_ArgumentException(string stringRepresentation)
+        {
+            TimePeriod t = new TimePeriod(stringRepresentation);
+        }
+
+        [DataTestMethod, TestCategory("Constructors")]
+        [DataRow("Mariola10:10")]
+        [DataRow("10,10,10")]
+        [DataRow("JanuszTomaszKasia")]
+        [DataRow(":10:10:10:")]
+        [DataRow("10;10:10")]
+        [DataRow("20:07::15")]
+        [ExpectedException(typeof(FormatException))]
+        public void TimePeriodConstructors_String_FormatException(string stringRepresentation)
+        {
+            TimePeriod t = new TimePeriod(stringRepresentation);
+        }
+
+        [DataTestMethod, TestCategory("Arithmetics")]
+        [DataRow(10, 10, 10, 11, 10, 10)]
+        [DataRow(30, 30, 30, 50, 00, 00)]
+        [DataRow(100, 00, 00, 200, 00, 00)]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void TimePeriodArithmetics_Minus_ArgumentOutOfRangeException(int hour1, int minute1, int second1, int hour2, int minute2, int second2)
+        {
+            TimePeriod t1 = new TimePeriod(hour1, minute1, second1);
+            TimePeriod t2 = new TimePeriod(hour2, minute2, second2);
+
+            TimePeriod result = t1.Minus(t2);
+        }
+
+        #endregion
+    }
 }
 

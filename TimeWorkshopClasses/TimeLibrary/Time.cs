@@ -41,7 +41,7 @@ namespace TimeLibrary
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public Time(int hours = 00, int minutes = 00, int seconds = 00)
         {
-            U.ExceptionHandler(hours, minutes, seconds);
+            U.TimeExceptionHandler(hours, minutes, seconds);
 
             byte convertHour = (byte)hours;
             byte convertMinutes = (byte)minutes;
@@ -77,7 +77,7 @@ namespace TimeLibrary
                     }
                 }
 
-                U.ExceptionHandler(int.Parse(timeArray[0]), int.Parse(timeArray[1]), int.Parse(timeArray[2]));
+                U.TimeExceptionHandler(int.Parse(timeArray[0]), int.Parse(timeArray[1]), int.Parse(timeArray[2]));
 
                 //In this situation TryParse is only an additional defence in case of some strange value somehow parsing to byte.
                 bool uncheckedHour = byte.TryParse(timeArray[0], out byte resultHours);

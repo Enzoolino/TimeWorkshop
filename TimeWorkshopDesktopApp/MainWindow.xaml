@@ -1,0 +1,102 @@
+﻿<Window x:Class="TimeWorkshopDesktopApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimeWorkshopDesktopApp"
+        xmlns:viewModel="clr-namespace:TimeWorkshopDesktopApp.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="570" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+
+    <Border Background="#272537"
+            CornerRadius="20">
+        <Grid x:Name="grid">
+            <Grid.Resources>
+                <Style x:Key="lineStyle" TargetType="Line">
+                    <Setter Property="Stroke" Value="Gray"/>
+                    <Setter Property="Stretch" Value="Fill"/>
+                    <Setter Property="Grid.ZIndex" Value="100"/>
+                    <Setter Property="StrokeDashArray" Value="1, 2"/>
+                </Style>
+
+                <Style x:Key="horizontalLineStyle" TargetType="Line" BasedOn="{StaticResource lineStyle}">
+                    <Setter Property="X2" Value="1"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    <Setter Property="Grid.ColumnSpan" Value="{Binding Path=ColumnDefinitions.Count, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+                </Style>
+
+                <Style x:Key="verticalLineStyle" TargetType="Line" BasedOn="{StaticResource lineStyle}">
+                    <Setter Property="Y2" Value="1" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                    <Setter Property="Grid.RowSpan"   
+                    Value="{Binding Path=RowDefinitions.Count, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+                </Style>
+            </Grid.Resources>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Line Grid.Column="0" Style="{StaticResource verticalLineStyle}"/>
+            <Line Grid.Row="0" Style="{StaticResource horizontalLineStyle}"/>
+
+            <TextBlock Text="WSEI"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Foreground="White"
+                   FontSize="22"
+                   Margin="20,0,0,0"
+                   FontFamily="/Fonts/#Poppins"/>
+
+            <StackPanel Grid.Row="1">
+                <RadioButton Content="Home"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             IsChecked="True"
+                             Command="{Binding HomeViewCommand}"/>
+
+                <RadioButton Content="Time"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding TimeViewCommand}"/>
+
+                <RadioButton Content="TimePeriod"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding TimePeriodCommand}"/>
+
+            </StackPanel>
+
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentView}"/>
+
+        </Grid>
+
+
+
+    </Border>
+
+        
+</Window>

@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeWorkshopDesktopApp.Core
+namespace TimeWorkshopDesktopApplication.Core
 {
     class ObservableObject : INotifyPropertyChanged
     {

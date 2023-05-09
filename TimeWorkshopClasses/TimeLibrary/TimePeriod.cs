@@ -66,6 +66,7 @@ namespace TimeLibrary
         /// <remarks>Format must be "00:00:00".</remarks>
         /// <param name="strTime"></param>
         /// <exception cref="FormatException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public TimePeriod(string strTime)
         {

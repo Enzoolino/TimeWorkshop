@@ -18,7 +18,7 @@ namespace TimeLibrary
         public static void TimeExceptionHandler(int h, int m, int s)
         {
             if ((h < 0 || h > 23) || (m < 0 || m > 59) || (s < 0 || s > 59))
-                throw new ArgumentOutOfRangeException("Podane wartości czasowe są niepoprawne!");
+                throw new ArgumentOutOfRangeException("Entered Time values are incorrect!");
                 
         }
 
@@ -31,7 +31,7 @@ namespace TimeLibrary
         public static void TimePeriodExceptionHandler(int h, int m, int s)
         {
             if (h < 0 || (m < 0 || m > 59) || (s < 0 || s > 59))
-                throw new ArgumentOutOfRangeException("Podane wartości czasowe są niepoprawne!");
+                throw new ArgumentOutOfRangeException("Entered Time values are incorrect!");
         }
 
         /// <summary>

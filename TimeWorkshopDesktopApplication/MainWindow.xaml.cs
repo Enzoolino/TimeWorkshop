@@ -13,14 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TimeWorkshopDesktopApp.MVVM.View
+namespace TimeWorkshopDesktopApplication
 {
     /// <summary>
-    /// Interaction logic for TimePeriodView.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class TimePeriodView : UserControl
+    public partial class MainWindow : Window
     {
-        public TimePeriodView()
+        
+        public MainWindow()
         {
             InitializeComponent();
         }

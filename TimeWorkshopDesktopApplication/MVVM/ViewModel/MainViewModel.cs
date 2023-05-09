@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TimeWorkshopDesktopApp.Core;
+using TimeWorkshopDesktopApplication.Core;
 
-namespace TimeWorkshopDesktopApp.MVVM.ViewModel
+namespace TimeWorkshopDesktopApplication.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {

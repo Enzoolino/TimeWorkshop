@@ -1,12 +1,13 @@
-﻿<Window x:Class="TimeWorkshopDesktopApp.MainWindow"
+﻿<Window x:Class="TimeWorkshopDesktopApplication.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TimeWorkshopDesktopApp"
-        xmlns:viewModel="clr-namespace:TimeWorkshopDesktopApp.MVVM.ViewModel"
+        xmlns:local="clr-namespace:TimeWorkshopDesktopApplication"
+        xmlns:viewModel="clr-namespace:TimeWorkshopDesktopApplication.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="570" Width="920"
+        WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
@@ -93,7 +94,6 @@
                             Content="{Binding CurrentView}"/>
 
         </Grid>
-
 
 
     </Border>

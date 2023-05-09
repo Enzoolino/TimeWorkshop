@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace TimeWorkshopDesktopApp
+namespace TimeWorkshopDesktopApplication
 {
     class RelayCommand : ICommand
     {

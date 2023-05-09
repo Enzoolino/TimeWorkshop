@@ -11,12 +11,14 @@ namespace TimeWorkshopDesktopApplication.MVVM.ViewModel
     {
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand TimeViewCommand { get; set; }
-        public RelayCommand TimePeriodCommand { get; set; }
+        public RelayCommand TimePeriodViewCommand { get; set; }
+        public RelayCommand ClockViewCommand { get; set; }
 
 
         public HomeViewModel HomeVM { get; set; }
         public TimeViewModel TimeVM { get; set; }
         public TimePeriodViewModel TimePeriodVM { get; set; }
+        public ClockViewModel ClockVM { get; set; }
 
         private object _currentView;
 
@@ -35,6 +37,7 @@ namespace TimeWorkshopDesktopApplication.MVVM.ViewModel
             HomeVM = new HomeViewModel();
             TimeVM = new TimeViewModel();
             TimePeriodVM = new TimePeriodViewModel();
+            ClockVM = new ClockViewModel();
 
             CurrentView = HomeVM;
 
@@ -50,9 +53,15 @@ namespace TimeWorkshopDesktopApplication.MVVM.ViewModel
             }
             );
 
-            TimePeriodCommand = new RelayCommand(o =>
+            TimePeriodViewCommand = new RelayCommand(o =>
             { 
                 CurrentView = TimePeriodVM;
+            }
+            );
+
+            ClockViewCommand = new RelayCommand(o =>
+            {
+                CurrentView= ClockVM;
             }
             );
 

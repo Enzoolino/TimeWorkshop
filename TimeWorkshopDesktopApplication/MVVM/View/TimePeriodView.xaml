@@ -5,11 +5,350 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TimeWorkshopDesktopApplication.MVVM.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="700"
+             Background="#1B1B1B">
+
+
     <Grid>
-        
-        
-        
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0">
+
+            <TextBlock Text="Primary TimePeriod"
+                       Foreground="White"
+                       FontSize="15"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 20, 0, 0"/>
+
+            <TextBox Style="{StaticResource WatermarkTextBox}"
+                     x:Name="txtPrimary"
+                     Tag="Input"
+                     Width="210"
+                     Height="25"
+                     FontSize="15"
+                     FontFamily="/Fonts/#Poppins"
+                     HorizontalAlignment="Center"
+                     Margin="0, 20, 0, 0"
+                     BorderBrush="{x:Null}"
+                     Background="#FFF6F6F6"
+                     Foreground="Black"
+                     TextAlignment="Center"/>
+
+            <TextBlock Text="Format must be 00:00:00"
+                       Foreground="Gray"
+                       FontSize="11"
+                       FontFamily="/Fonts/#Poppins"
+                       FontStyle="Italic"
+                       HorizontalAlignment="Center"
+                       Margin="0, 5, 0, 0"/>
+
+            <ToggleButton x:Name="btnConfirmPrimary"
+                    Style="{StaticResource ConfirmButton}"      
+                    Content="Confirm"
+                    Width="100"
+                    Margin="0, 5, 0, 0"
+                    Background="#ad3ecf" 
+                    Foreground="White" 
+                    BorderBrush="White" 
+                    BorderThickness="2" 
+                    Padding="10" 
+                    FontSize="16" 
+                    FontWeight="Bold" 
+                    Cursor="Hand"
+                    Click="PrimaryConfirmButton_Click"
+                    IsChecked="False">
+            </ToggleButton>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1">
+
+            <TextBlock Text="Operational TimePeriod"
+                       Foreground="White"
+                       FontSize="15"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 20, 0, 0"/>
+
+            <TextBox Style="{StaticResource WatermarkTextBox}"
+                     Name="txtOperational"
+                     Tag="Input"
+                     Width="210"
+                     Height="25"
+                     FontSize="15"
+                     FontFamily="/Fonts/#Poppins"
+                     HorizontalAlignment="Center"
+                     Margin="0, 20, 0, 0"
+                     BorderBrush="{x:Null}"
+                     Background="#FFF6F6F6"
+                     Foreground="Black"
+                     TextAlignment="Center"/>
+
+            <TextBlock Text="Format must be 00:00:00"
+                       Foreground="Gray"
+                       FontSize="11"
+                       FontFamily="/Fonts/#Poppins"
+                       FontStyle="Italic"
+                       HorizontalAlignment="Center"
+                       Margin="0, 5, 0, 0"/>
+
+            <ToggleButton x:Name="btnConfirmOperational"
+                    Style="{StaticResource ConfirmButton}"
+                    Content="Confirm"
+                    Width="100"
+                    HorizontalAlignment="Center"  
+                    Margin="0, 5, 0, 0"
+                    Background="#ad3ecf" 
+                    Foreground="White" 
+                    BorderBrush="White" 
+                    BorderThickness="2"
+                    Padding="10" 
+                    FontSize="16" 
+                    FontWeight="Bold" 
+                    Cursor="Hand"
+                    Click="OperationalConfirmButton_Click"
+                    IsChecked="False">
+            </ToggleButton>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Grid.ColumnSpan="2">
+            <TextBlock Text="Operations"
+                       Foreground="White"
+                       FontSize="18"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Bigger(&gt;):"
+                       Foreground="White"
+                       FontSize="13"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 13, 190, 0"/>
+
+            <TextBlock Name="txtBigger"
+                     Text="Empty"
+                     TextAlignment="Center"
+                     FontSize="12"
+                     Foreground="#ad3ecf"
+                     FontFamily="/Fonts/#Poppins"
+                     Width="80"
+                     Height="20"
+                     Margin="0, 8, 190, 0"
+                     Background="#FFF6F6F6"/>
+
+            <TextBlock Text="Smaller Or Equal(&lt;=):"
+                       Foreground="White"
+                       FontSize="13"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 40, 190, 0"/>
+
+            <TextBlock Name="txtSmallerOrEqual"
+                     Text="Empty"
+                     TextAlignment="Center"
+                     FontSize="12"
+                     Foreground="#ad3ecf"
+                     FontFamily="/Fonts/#Poppins"
+                     Width="80"
+                     Height="20"
+                     Margin="0, 8, 190, 0"
+                     Background="#FFF6F6F6"/>
+
+            <TextBlock Text="Bigger Or Equal(&gt;=):"
+                       Foreground="White"
+                       FontSize="13"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 40, 190, 0"/>
+
+            <TextBlock Name="txtBiggerOrEqual"
+                     Text="Empty"
+                     TextAlignment="Center"
+                     FontSize="12"
+                     Foreground="#ad3ecf"
+                     FontFamily="/Fonts/#Poppins"
+                     Width="80"
+                     Height="20"
+                     Margin="0, 8, 190, 0"
+                     Background="#FFF6F6F6"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0">
+
+            <TextBlock Text="Equal(==):"
+                       Foreground="White"
+                       FontSize="13"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 40, 170, 0"/>
+
+            <TextBlock Name="txtEqual"
+                     Text="Empty"
+                     TextAlignment="Center"
+                     FontSize="12"
+                     Foreground="#ad3ecf"
+                     FontFamily="/Fonts/#Poppins"
+                     Width="80"
+                     Height="20"
+                     Margin="0, 8, 170, 0"
+                     Background="#FFF6F6F6"/>
+
+
+            <TextBlock Text="Not Equal(!=):"
+                       Foreground="White"
+                       FontSize="13"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 40, 170, 0"/>
+
+            <TextBlock Name="txtNotEqual"
+                     Text="Empty"
+                     TextAlignment="Center"
+                     FontSize="12"
+                     Foreground="#ad3ecf"
+                     FontFamily="/Fonts/#Poppins"
+                     Width="80"
+                     Height="20"
+                     Margin="0, 8, 170, 0"
+                     Background="#FFF6F6F6"/>
+
+            <TextBlock Text="Smaller(&lt;):"
+                       Foreground="White"
+                       FontSize="13"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 40, 170, 0"/>
+
+            <TextBlock Name="txtSmaller"
+                     Text="Empty"
+                     TextAlignment="Center"
+                     FontSize="12"
+                     Foreground="#ad3ecf"
+                     FontFamily="/Fonts/#Poppins"
+                     Width="80"
+                     Height="20"
+                     Margin="0, 8, 170, 0"
+                     Background="#FFF6F6F6"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1">
+
+            <TextBlock Text="Add(+):"
+                       Foreground="White"
+                       FontSize="13"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 40, 0, 0"/>
+
+            <TextBlock Name="txtAdd"
+                     Text="Empty"
+                     Width="150"
+                     Height="20"
+                     FontSize="13"
+                     FontFamily="/Fonts/#Poppins"
+                     HorizontalAlignment="Center"
+                     Background="#FFF6F6F6"
+                     Foreground="#ad3ecf"
+                     TextAlignment="Center"
+                     Margin="0, 10, 0, 0"/>
+
+            <TextBlock Text="Subtract(-):"
+                       Foreground="White"
+                       FontSize="13"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 40, 0, 0"/>
+
+            <TextBlock Name="txtSubtract"
+                     Text="Empty"
+                     Width="150"
+                     Height="20"
+                     FontSize="13"
+                     FontFamily="/Fonts/#Poppins"
+                     HorizontalAlignment="Center"
+                     Background="#FFF6F6F6"
+                     Foreground="#ad3ecf"
+                     TextAlignment="Center"
+                     Margin="0, 8, 0, 0"/>
+
+            <TextBlock Text="Multiplication(*):"
+                       Foreground="White"
+                       FontSize="13"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 40, 0, 0"/>
+
+            <StackPanel Orientation="Horizontal">
+
+                <TextBlock Text="*"
+                           Foreground="White"
+                           FontSize="20"
+                           Height="20"
+                           Margin="24, 8, 0, 0"/>
+
+                <TextBox Style="{StaticResource WatermarkTextBox}"
+                         Tag="?"
+                         Name="MultiplyNumber"
+                         HorizontalAlignment="Center"
+                         Width="30"
+                         Height="20"
+                         FontSize="13"
+                         FontFamily="/Fonts/#Poppins"
+                         BorderBrush="{x:Null}"
+                         Background="#FFF6F6F6"
+                         Foreground="Black"
+                         TextAlignment="Center"
+                         Margin="8, 8, 0, 0"/>
+
+                <TextBlock Text="="
+                           Foreground="White"
+                           FontSize="20"
+                           Height="20"
+                           Margin="8, 0, 0, 0"/>
+
+                <TextBlock Name="txtMultiply"
+                     Text="Empty"
+                     Width="150"
+                     Height="20"
+                     FontSize="13"
+                     FontFamily="/Fonts/#Poppins"
+                     HorizontalAlignment="Center"
+                     Background="#FFF6F6F6"
+                     Foreground="#ad3ecf"
+                     TextAlignment="Center"
+                     Margin="8, 8, 0, 0"/>
+
+            </StackPanel>
+            <TextBlock Text="Multiplication is done on Primary TimePeriod.&#x0a; Change '?' to desired multiplicator."
+                       Foreground="Gray"
+                       FontSize="11"
+                       FontFamily="/Fonts/#Poppins"
+                       HorizontalAlignment="Center"
+                       Margin="0, 2, 0, 0"
+                       TextAlignment="Center"/>
+
+
+        </StackPanel>
     </Grid>
+
+
+
+
+
+
 </UserControl>

@@ -10,7 +10,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/TextBoxWatermarkTheme.xaml"/>
-                <ResourceDictionary Source="Theme/OperationalButtonsTheme.xaml"/>
+                <ResourceDictionary Source="Theme/ConfirmButtonsTheme.xaml"/>
                 <ResourceDictionary Source="Theme/CheckBoxTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
@@ -24,6 +24,10 @@
 
             <DataTemplate DataType="{x:Type viewModel:TimePeriodViewModel}">
                 <view:TimePeriodView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:ClockViewModel}">
+                <view:ClockView/>
             </DataTemplate>
 
 

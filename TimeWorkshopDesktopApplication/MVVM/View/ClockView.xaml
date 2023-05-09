@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="TimeWorkshopDesktopApplication.MVVM.View.ClockView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TimeWorkshopDesktopApplication.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="700"
+             Background="#1B1B1B">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Name="txtClock"
+                   Grid.Row="1"
+                   Text="00:00:00"
+                   Foreground="White"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="70"
+                   FontFamily="/Fonts/#Poppins"
+                   Loaded="ClockView_Loaded"
+                   Unloaded="ClockView_Unloaded"/>
+
+
+    </Grid>
+</UserControl>

@@ -84,8 +84,34 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding TimePeriodCommand}"/>
+                             Command="{Binding TimePeriodViewCommand}"/>
 
+                <RadioButton Content="Clock"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding ClockViewCommand}"/>
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+
+                <Button x:Name="btnClose"
+                        Width="20"
+                        Height="20"
+                        HorizontalAlignment="Right"
+                        Margin="680, 0, 0, 0"
+                        Background="Transparent"
+                        FontSize="25"
+                        BorderBrush="Transparent"
+                        Click="btnClose_Click">
+                    <Image Source="/Images/Exit.png"
+                           Stretch="Uniform"/>
+                </Button>
+                
             </StackPanel>
 
             <ContentControl Grid.Row="1"

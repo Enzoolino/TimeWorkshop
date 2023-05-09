@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -27,120 +29,80 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
             InitializeComponent();
         }
 
-
-
-        
+        //Bools - Confirmation
         private bool confirmedPrimary = false;
-
         private bool confirmedOperationalTime = false;
         private bool confirmedOperationalTimePeriod = false;
 
+        //TimeValues
         private Time timePrimary = new Time();
         private Time timeOperational = new Time();
         private TimePeriod timePeriodOperational = new TimePeriod();
 
+        //Bools - Flags
+        bool conversionFailedPrimary = false; // initialize a flag to indicate whether a conversion error occurred.
+        bool conversionFailedOperational = false; //// initialize a flag to indicate whether a conversion error occurred.
 
 
         private void PrimaryConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                timePrimary = new Time(txtPrimary.Text);
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Converting input into 'Time' value failed." +
-                    "Make sure value you are trying to convert is in format 00:00:00.");
-            }
-
-            catch (ArgumentOutOfRangeException)
-            {
-                MessageBox.Show("Entered Time values are incorrect!");
-            }
-
-            catch (ArgumentException)
-            {
-                MessageBox.Show("Converting input into 'Time' value failed." +
-                        "Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.");
-            }
-            finally
-            {
-                timePrimary = new Time(txtPrimary.Text);
-                confirmedPrimary = true;
-            }
-
-            if (confirmedPrimary && confirmedOperationalTime)
-            {
-                if (timePrimary == timeOperational)
-                    txtEqual.Text = "True";
-                else txtEqual.Text = "False";
-
-                if (timePrimary != timeOperational)
-                    txtNotEqual.Text = "True";
-                else txtNotEqual.Text = "False";
-
-                if (timePrimary < timeOperational)
-                    txtSmaller.Text = "True";
-                else txtSmaller.Text = "False";
-
-                if (timePrimary > timeOperational)
-                    txtBigger.Text = "True";
-                else txtBigger.Text = "False";
-
-                if (timePrimary <= timeOperational)
-                    txtSmallerOrEqual.Text = "True";
-                else txtSmallerOrEqual.Text = "False";
-
-                if (timePrimary >= timeOperational)
-                    txtBiggerOrEqual.Text = "True";
-                else txtBiggerOrEqual.Text = "False";
-            }
             
-        }
+            ToggleButton toggleButton = sender as ToggleButton;
 
-        private void OperationalConfirmButton_Click(Object sender, RoutedEventArgs e)
-        {
-            try
+            if (toggleButton.IsChecked == true)
             {
-                if (TimePeriodCheckBox.IsChecked == true)
-                    timePeriodOperational = new TimePeriod(txtPrimary.Text);
-                else if (TimePeriodCheckBox.IsChecked == false)
-                    timeOperational = new Time(txtPrimary.Text);
-
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Converting input into 'Time' value failed." +
-                    "Make sure value you are trying to convert is in format 00:00:00.");
-            }
-
-            catch (ArgumentOutOfRangeException)
-            {
-                MessageBox.Show("Entered Time values are incorrect!");
-            }
-
-            catch (ArgumentException)
-            {
-                MessageBox.Show("Converting input into 'Time' value failed." +
-                        "Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.");
-            }
-            finally
-            {
-                if (TimePeriodCheckBox.IsChecked == true)
+                try
                 {
-                    timePeriodOperational = new TimePeriod(txtPrimary.Text);
-                    confirmedOperationalTimePeriod = true;
+                    timePrimary = new Time(txtPrimary.Text);
                 }
-                else if (TimePeriodCheckBox.IsChecked == false)
+                catch (FormatException)
                 {
-                    timeOperational = new Time(txtPrimary.Text);
-                    confirmedOperationalTime = true;
-                } 
+                    MessageBox.Show("Converting input into 'Time' value failed." +
+                        "Make sure value you are trying to convert is in format 00:00:00.");
+
+                    conversionFailedPrimary = true;
+                }
+
+                catch (ArgumentOutOfRangeException)
+                {
+                    MessageBox.Show("Entered Time values are incorrect!");
+
+                    conversionFailedPrimary= true;
+                }
+
+                catch (ArgumentException)
+                {
+                    MessageBox.Show("Converting input into 'Time' value failed." +
+                            "Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.");
+
+                    conversionFailedPrimary = true;
+                }
+                finally
+                {
+                    if (!conversionFailedPrimary)
+                    {
+                        timePrimary = new Time(txtPrimary.Text);
+                        confirmedPrimary = true;
+                    }
+                    else
+                    {
+                        toggleButton.IsChecked = false;
+                        timePrimary = new Time();
+                        confirmedPrimary = false;
+                    }
+                }
+            }
+            else
+            {
+                timePrimary = new Time();
+                confirmedPrimary = false;
             }
 
 
             if (confirmedPrimary && confirmedOperationalTime)
             {
+                TimePeriodCheckBox.IsHitTestVisible = false;
+
                 if (timePrimary == timeOperational)
                     txtEqual.Text = "True";
                 else txtEqual.Text = "False";
@@ -167,14 +129,160 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
             }
             else if (confirmedPrimary && confirmedOperationalTimePeriod)
             {
+                TimePeriodCheckBox.IsHitTestVisible = false;
+
                 Time Added = timePrimary + timePeriodOperational;
                 Time Subtracted = timePrimary - timePeriodOperational;
 
                 txtAdd.Text = Added.ToString();
                 txtSubtract.Text = Subtracted.ToString();
-            
+
+            }
+            else
+            {
+                TimePeriodCheckBox.IsHitTestVisible = true;
+
+                txtEqual.Text = "Empty";
+                txtNotEqual.Text = "Empty";
+                txtSmaller.Text = "Empty";
+                txtBigger.Text = "Empty";
+                txtSmallerOrEqual.Text = "Empty";
+                txtBiggerOrEqual.Text = "Empty";
+                txtAdd.Text = "Empty";
+                txtSubtract.Text = "Empty";
+            }    
+        }
+
+        private void OperationalConfirmButton_Click(Object sender, RoutedEventArgs e)
+        {
+
+            ToggleButton toggleButton = sender as ToggleButton;
+
+            if (toggleButton.IsChecked == true)
+            {
+                try
+                {
+                    if (TimePeriodCheckBox.IsChecked == true)
+                        timePeriodOperational = new TimePeriod(txtOperational.Text);
+                    else if (TimePeriodCheckBox.IsChecked == false)
+                        timeOperational = new Time(txtOperational.Text);
+
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Converting input into 'Time' value failed." +
+                        "Make sure value you are trying to convert is in format 00:00:00.");
+
+                    conversionFailedOperational = true;
+                }
+
+                catch (ArgumentOutOfRangeException)
+                {
+                    MessageBox.Show("Entered Time values are incorrect!");
+
+                    conversionFailedOperational = true;
+                }
+
+                catch (ArgumentException)
+                {
+                    MessageBox.Show("Converting input into 'Time' value failed." +
+                            "Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.");
+
+                    conversionFailedOperational = true;
+                }
+                finally
+                {
+                    if (!conversionFailedOperational)
+                    {
+                        if (TimePeriodCheckBox.IsChecked == true)
+                        {
+                            timePeriodOperational = new TimePeriod(txtOperational.Text);
+                            confirmedOperationalTimePeriod = true;
+                        }
+                        else if (TimePeriodCheckBox.IsChecked == false)
+                        {
+                            timeOperational = new Time(txtOperational.Text);
+                            confirmedOperationalTime = true;
+                        }
+                    }
+                    else
+                    {
+                        toggleButton.IsChecked = false;
+                        timePeriodOperational = new TimePeriod();
+                        timeOperational = new Time();
+                        confirmedOperationalTimePeriod = false;
+                        confirmedOperationalTime = false;
+                    }
+                }
+
+            }
+            else
+            {
+                if (TimePeriodCheckBox.IsChecked == true)
+                {
+                    timePeriodOperational = new TimePeriod();
+                    confirmedOperationalTimePeriod = false;
+                }
+                else if (TimePeriodCheckBox.IsChecked == false)
+                {
+                    timeOperational = new Time();
+                    confirmedOperationalTime = false;
+                }
+
             }
 
+            if (confirmedPrimary && confirmedOperationalTime)
+            {
+                TimePeriodCheckBox.IsHitTestVisible = false;
+
+                if (timePrimary == timeOperational)
+                    txtEqual.Text = "True";
+                else txtEqual.Text = "False";
+
+                if (timePrimary != timeOperational)
+                    txtNotEqual.Text = "True";
+                else txtNotEqual.Text = "False";
+
+                if (timePrimary < timeOperational)
+                    txtSmaller.Text = "True";
+                else txtSmaller.Text = "False";
+
+                if (timePrimary > timeOperational)
+                    txtBigger.Text = "True";
+                else txtBigger.Text = "False";
+
+                if (timePrimary <= timeOperational)
+                    txtSmallerOrEqual.Text = "True";
+                else txtSmallerOrEqual.Text = "False";
+
+                if (timePrimary >= timeOperational)
+                    txtBiggerOrEqual.Text = "True";
+                else txtBiggerOrEqual.Text = "False";
+            }
+            else if (confirmedPrimary && confirmedOperationalTimePeriod)
+            {
+                TimePeriodCheckBox.IsHitTestVisible = false;
+
+                Time Added = timePrimary + timePeriodOperational;
+                Time Subtracted = timePrimary - timePeriodOperational;
+
+                txtAdd.Text = Added.ToString();
+                txtSubtract.Text = Subtracted.ToString();
+
+            }
+            else
+            {
+                TimePeriodCheckBox.IsHitTestVisible = true;
+
+                txtEqual.Text = "Empty";
+                txtNotEqual.Text = "Empty";
+                txtSmaller.Text = "Empty";
+                txtBigger.Text = "Empty";
+                txtSmallerOrEqual.Text = "Empty";
+                txtBiggerOrEqual.Text = "Empty";
+                txtAdd.Text = "Empty";
+                txtSubtract.Text = "Empty";
+            }
         }
 
     }

@@ -10,10 +10,10 @@
 
   <ItemGroup>
     <None Remove="Fonts\Poppins-Regular.ttf" />
+    <None Remove="Images\Exit.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
     <Folder Include="MVVM\Model\" />
   </ItemGroup>
 
@@ -23,6 +23,9 @@
 
   <ItemGroup>
     <Resource Include="Fonts\Poppins-Regular.ttf" />
+    <Resource Include="Images\Exit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

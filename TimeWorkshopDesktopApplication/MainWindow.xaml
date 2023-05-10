@@ -62,9 +62,6 @@
                    FontSize="22"
                    Margin="20,0,0,0"
                    FontFamily="/Fonts/#Poppins"/>
-            <Image Source="/Images/Hand.png"
-                   Width="30"
-                   Height="30"/>
 
             <StackPanel Grid.Row="1">
                 <RadioButton Content="Home"
@@ -95,6 +92,13 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding ClockViewCommand}"/>
+
+                <RadioButton Content="StopWatch"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding StopWatchViewCommand}"/>
 
             </StackPanel>
 

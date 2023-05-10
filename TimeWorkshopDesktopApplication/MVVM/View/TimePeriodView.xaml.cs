@@ -56,14 +56,15 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                 catch (FormatException)
                 {
                     MessageBox.Show("Converting input into 'Time' value failed." +
-                        "Make sure value you are trying to convert is in format 00:00:00.");
+                        " Make sure value you are trying to convert is in format 00:00:00.", "Format Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedPrimary = true;
                 }
 
                 catch (ArgumentOutOfRangeException)
                 {
-                    MessageBox.Show("Entered Time values are incorrect!");
+                    MessageBox.Show("Entered Time values are incorrect!" +
+                        " Remember that these are max values for TimePeriod: --:59:59.", "Argument Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedPrimary = true;
                 }
@@ -71,7 +72,7 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                 catch (ArgumentException)
                 {
                     MessageBox.Show("Converting input into 'Time' value failed." +
-                            "Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.");
+                            " Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.", "ArgumentError", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedPrimary = true;
                 }
@@ -109,7 +110,8 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                     }
                     else
                     {
-                        MessageBox.Show("TimePeriod can't be multiplied by given number. Make sure number you are trying to enter is correct.");
+                        MessageBox.Show("TimePeriod can't be multiplied by given number. Make sure number you are trying to enter is correct.", "Multiplicator", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MultiplyNumber.Text = "";
                     }
                 }
             }
@@ -146,10 +148,31 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                 else txtBiggerOrEqual.Text = "False";
 
                 TimePeriod Added = timePeriodPrimary + timePeriodOperational;
-                TimePeriod Subtracted = timePeriodPrimary - timePeriodOperational;
-
                 txtAdd.Text = Added.ToString();
-                txtSubtract.Text = Subtracted.ToString();
+
+                //Flag
+                bool subtractFailed = false;
+
+                try
+                {
+                    TimePeriod Subtracted = timePeriodPrimary - timePeriodOperational;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    subtractFailed = true;
+                }
+                finally
+                {
+                    if (!subtractFailed)
+                    {
+                        TimePeriod Subtracted = timePeriodPrimary - timePeriodOperational;
+                        txtSubtract.Text = Subtracted.ToString();
+                    }
+                    else
+                    {
+                        txtSubtract.Text = "Empty";
+                    }
+                }
             }
             else
             {
@@ -178,14 +201,15 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                 catch (FormatException)
                 {
                     MessageBox.Show("Converting input into 'Time' value failed." +
-                        "Make sure value you are trying to convert is in format 00:00:00.");
+                        " Make sure value you are trying to convert is in format 00:00:00.", "Format Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedOperational = true;
                 }
 
                 catch (ArgumentOutOfRangeException)
                 {
-                    MessageBox.Show("Entered Time values are incorrect!");
+                    MessageBox.Show("Entered Time values are incorrect!" +
+                        " Remember that these are max values for TimePeriod: --:59:59.", "Argument Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedOperational = true;
                 }
@@ -193,7 +217,7 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                 catch (ArgumentException)
                 {
                     MessageBox.Show("Converting input into 'Time' value failed." +
-                            "Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.");
+                            " Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.", "ArgumentError", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedOperational = true;
                 }
@@ -247,11 +271,32 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                 else txtBiggerOrEqual.Text = "False";
 
                 TimePeriod Added = timePeriodPrimary + timePeriodOperational;
-                TimePeriod Subtracted = timePeriodPrimary - timePeriodOperational;
-
                 txtAdd.Text = Added.ToString();
-                txtSubtract.Text = Subtracted.ToString();
 
+
+                //Flag
+                bool subtractFailed = false;
+
+                try
+                {
+                    TimePeriod Subtracted = timePeriodPrimary - timePeriodOperational;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    subtractFailed = true;
+                }
+                finally
+                {
+                    if (!subtractFailed)
+                    {
+                        TimePeriod Subtracted = timePeriodPrimary - timePeriodOperational;
+                        txtSubtract.Text = Subtracted.ToString();
+                    }
+                    else
+                    {
+                        txtSubtract.Text = "Empty";
+                    }
+                }
             }
             else
             {

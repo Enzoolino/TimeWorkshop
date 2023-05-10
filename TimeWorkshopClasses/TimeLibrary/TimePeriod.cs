@@ -30,12 +30,6 @@ namespace TimeLibrary
         {
             U.TimePeriodExceptionHandler(hours, minutes, seconds);
 
-            /*
-            byte convertHour = (byte)hours;
-            byte convertMinutes = (byte)minutes;
-            byte convertSeconds = (byte)seconds;
-            */
-
             Seconds = (hours * 3600) + (minutes * 60) + seconds;
         }
 

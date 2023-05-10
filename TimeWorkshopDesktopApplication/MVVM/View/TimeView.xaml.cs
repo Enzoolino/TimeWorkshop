@@ -58,14 +58,15 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                 catch (FormatException)
                 {
                     MessageBox.Show("Converting input into 'Time' value failed." +
-                        "Make sure value you are trying to convert is in format 00:00:00.");
+                        " Make sure value you are trying to convert is in format 00:00:00.", "Format Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedPrimary = true;
                 }
 
                 catch (ArgumentOutOfRangeException)
                 {
-                    MessageBox.Show("Entered Time values are incorrect!");
+                    MessageBox.Show("Entered Time values are incorrect!" +
+                        " Remember that these are max values for Time: 23:59:59.", "Argument Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedPrimary= true;
                 }
@@ -73,7 +74,7 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                 catch (ArgumentException)
                 {
                     MessageBox.Show("Converting input into 'Time' value failed." +
-                            "Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.");
+                            " Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.", "Argument Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedPrimary = true;
                 }
@@ -171,14 +172,15 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                 catch (FormatException)
                 {
                     MessageBox.Show("Converting input into 'Time' value failed." +
-                        "Make sure value you are trying to convert is in format 00:00:00.");
+                        " Make sure value you are trying to convert is in format 00:00:00.", "Format Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedOperational = true;
                 }
 
                 catch (ArgumentOutOfRangeException)
                 {
-                    MessageBox.Show("Entered Time values are incorrect!");
+                    MessageBox.Show("Entered Time values are incorrect!" +
+                        " Remember that these are max values for Time: 23:59:59.", "Argument Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedOperational = true;
                 }
@@ -186,7 +188,7 @@ namespace TimeWorkshopDesktopApplication.MVVM.View
                 catch (ArgumentException)
                 {
                     MessageBox.Show("Converting input into 'Time' value failed." +
-                            "Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.");
+                            " Make sure value you are trying to convert is in format 00:00:00 and consists of natural numbers.", "Argument Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     conversionFailedOperational = true;
                 }

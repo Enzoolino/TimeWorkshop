@@ -27,7 +27,7 @@
                    Unloaded="ClockView_Unloaded"/>
 
         <TextBlock Grid.Row="2"
-                   Text="If clock is showing 00:00:00 try to wait a few seconds &#x0a;as it may lag a little when launching"
+                   Text="If clock is showing 00:00:00 try to wait a few seconds &#x0a;as it may lag a little while launching"
                    Foreground="LightGray"
                    HorizontalAlignment="Center"
                    TextAlignment="Center"

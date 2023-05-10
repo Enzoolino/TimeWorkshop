@@ -30,6 +30,10 @@
                 <view:ClockView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:StopWatchViewModel}">
+                <view:StopWatchView/>
+            </DataTemplate>
+
 
         </ResourceDictionary>
     </Application.Resources>

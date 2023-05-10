@@ -18,15 +18,15 @@ namespace TimeLibrary
     {
         #region Properties
         /// <summary>
-        /// This property always returns a value and is a representation of Hours in 'Time'.
+        /// Representation of Hours in 'Time'.
         /// </summary>
         public readonly byte Hours { get;}
         /// <summary>
-        /// This property always returns a value and is a representation of Minutes in 'Time'.
+        /// Representation of Minutes in 'Time'.
         /// </summary>
         public readonly byte Minutes { get;}
         /// <summary>
-        /// This property always returns a value and is a representation of Seconds in 'Time'.
+        /// Representation of Seconds in 'Time'.
         /// </summary>
         public readonly byte Seconds { get;}
         #endregion

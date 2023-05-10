@@ -36,7 +36,7 @@
                                    Margin="20,10,10,0"
                                    TextWrapping="WrapWithOverflow">
                             The Application you can see here is basically a testing device for the classes 'Time' and
-                            'TimePeriod' implemented inside the Solution. While using this app you are able to check
+                            'TimePeriod' implemented inside the Solution. While using it, you are able to check
                             some basic functionality of these classe as well as see them in action on the 'Clock' section of the app.
 
 

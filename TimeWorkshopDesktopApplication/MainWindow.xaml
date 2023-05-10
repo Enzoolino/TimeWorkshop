@@ -62,6 +62,9 @@
                    FontSize="22"
                    Margin="20,0,0,0"
                    FontFamily="/Fonts/#Poppins"/>
+            <Image Source="/Images/Hand.png"
+                   Width="30"
+                   Height="30"/>
 
             <StackPanel Grid.Row="1">
                 <RadioButton Content="Home"

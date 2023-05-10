@@ -26,6 +26,15 @@
                    Loaded="ClockView_Loaded"
                    Unloaded="ClockView_Unloaded"/>
 
+        <TextBlock Grid.Row="2"
+                   Text="If clock is showing 00:00:00 try to wait a few seconds &#x0a;as it may lag a little when launching"
+                   Foreground="LightGray"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   FontSize="18"
+                   FontFamily="/Fonts/#Poppins"
+                   FontStyle="Italic"/>
+
 
     </Grid>
 </UserControl>

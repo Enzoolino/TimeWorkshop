@@ -26,13 +26,36 @@ namespace TimeWorkshopDesktopApplication
             InitializeComponent();
         }
 
-
+        //Close App Button
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
 
+        //Move window when dragged
+        private bool isDragging;
+        private Point lastMouseDownPosition;
 
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            isDragging = true;
+            lastMouseDownPosition = e.GetPosition(this);
+        }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                Point currentPosition = e.GetPosition(this);
+                this.Left += currentPosition.X - lastMouseDownPosition.X;
+                this.Top += currentPosition.Y - lastMouseDownPosition.Y;
+            }
+        }
+
+        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            isDragging = false;
+        }
     }
 }
